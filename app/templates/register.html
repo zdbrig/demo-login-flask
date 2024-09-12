@@ -1,4 +1,3 @@
-
 {% extends "base.html" %}
 
 {% block content %}
@@ -14,12 +13,32 @@
             {{ form.email(class="form-control") }}
         </div>
         <div class="form-group">
+            {{ form.phone_number.label }}
+            {{ form.phone_number(class="form-control") }}
+        </div>
+        <div class="form-group">
             {{ form.password.label }}
             {{ form.password(class="form-control") }}
         </div>
         <div class="form-group">
             {{ form.password2.label }}
             {{ form.password2(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.occupation.label }}
+            {{ form.occupation(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.preferred_contact_method.label }}
+            {{ form.preferred_contact_method(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.reason_for_interest.label }}
+            {{ form.reason_for_interest(class="form-control") }}
+        </div>
+        <div class="form-check">
+            {{ form.agree_terms(class="form-check-input") }}
+            {{ form.agree_terms.label(class="form-check-label") }}
         </div>
         {{ form.submit(class="btn btn-primary") }}
     </form>

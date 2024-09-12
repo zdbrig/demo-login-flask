@@ -25,9 +25,14 @@ def upgrade():
     sa.Column('password_hash', sa.String(length=128), nullable=True),
     sa.Column('is_admin', sa.Boolean(), nullable=True),
     sa.Column('is_approved', sa.Boolean(), nullable=True),
+    sa.Column('occupation', sa.String(length=128), nullable=True),  # New column for occupation
+    sa.Column('preferred_contact_method', sa.String(length=20), nullable=True),  # New column for preferred contact method
+    sa.Column('phone_number', sa.String(length=20), nullable=True),  # New column for phone number
+    sa.Column('reason_for_interest', sa.Text(), nullable=True),  # New column for reason of interest
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email')  # Keep the unique constraint on 'email' only
     )
+
     # ### end Alembic commands ###
 
 

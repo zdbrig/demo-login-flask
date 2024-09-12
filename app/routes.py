@@ -66,7 +66,6 @@ def register():
             email_to=user.email
         )
 
-
         flash('Registration successful. Please wait for admin approval.', 'success')
         return redirect(url_for('auth.login'))
     return render_template('register.html', form=form)
