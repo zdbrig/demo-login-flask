@@ -17,8 +17,14 @@ RUN pip install -r requirements.txt
 ENV FLASK_APP=run.py
 ENV FLASK_ENV=development
 
+# Copy the entrypoint script into the container
+COPY entrypoint.sh /app/entrypoint.sh
+
+# Make entrypoint script executable
+RUN chmod +x /app/entrypoint.sh
+
 # Expose port 4000 for the Flask app
 EXPOSE 4000
 
-# Command to run the Flask app
-CMD ["flask", "run", "--host=0.0.0.0", "--port=4000"]
+# Run the entrypoint script
+ENTRYPOINT ["/app/entrypoint.sh"]

@@ -1,5 +1,8 @@
 .env
-create-project
+create-project.py
 test.py
 /instance/
-/__pycache__/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
