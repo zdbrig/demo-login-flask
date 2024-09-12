@@ -1,7 +1,7 @@
 .env
 create-project.py
 test.py
-/instance/
+app.db
 __pycache__/
 *.pyc
 *.pyo
