@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  auth:
+    build: .
+    # container_name: auth_container
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./instance/app.db:/instance/app.db  # Mount the SQLite database file
+      - ./migrations:/app/migrations        # Mount the migrations directory
+    environment:
+      FLASK_APP: run.py
+      FLASK_ENV: development
+    entrypoint: /app/entrypoint.sh          # Specify the entrypoint script to run
+
+volumes:
+  app-data:
+    driver: local
