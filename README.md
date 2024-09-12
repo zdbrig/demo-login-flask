@@ -23,12 +23,10 @@ Open the .env file and update the values as needed. Here is an example of what t
 
 ```ini
 # .env
-SECRET_KEY=your_secret_key
 DATABASE_URL=sqlite:///instance/app.db
 EMAIL_FROM=your_email@example.com
 EMAIL_PASSWORD=your_email_password
-SMTP_SERVER=smtp.gmail.com
-SMTP_PORT=587
+
 ```
 
 ### Step 2: Build and Run the Project
