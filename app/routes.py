@@ -1,9 +1,12 @@
-
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_user, login_required, logout_user, current_user
 from app import db
 from app.models import User
 from app.forms import LoginForm, RegistrationForm
+from app.utils.email_handler import EmailHandler
+
+# Initialize the email handler
+email_handler = EmailHandler()
 
 main = Blueprint('main', __name__)
 auth = Blueprint('auth', __name__)
@@ -28,7 +31,7 @@ def login():
         return redirect(url_for('main.index'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
+        user = User.query.filter_by(email=form.username.data).first()
         if user and user.check_password(form.password.data):
             if not user.is_approved:
                 flash('Your account is not approved yet.', 'warning')
@@ -36,7 +39,7 @@ def login():
             login_user(user, remember=form.remember_me.data)
             next_page = request.args.get('next')
             return redirect(next_page or url_for('main.index'))
-        flash('Invalid username or password', 'danger')
+        flash('Invalid email or password', 'danger')
     return render_template('login.html', form=form)
 
 @auth.route('/logout')
@@ -55,6 +58,14 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
+
+        # Send registration email
+        email_handler.send_email(
+            subject="Welcome to Our App!",
+            message="Thank you for registering. Your account is pending approval.",
+            email_to=user.email
+        )
+
         flash('Registration successful. Please wait for admin approval.', 'success')
         return redirect(url_for('auth.login'))
     return render_template('register.html', form=form)
@@ -68,5 +79,13 @@ def approve_user(user_id):
     user = User.query.get_or_404(user_id)
     user.is_approved = True
     db.session.commit()
+
+    # Send approval email
+    email_handler.send_email(
+        subject="Your Account Has Been Approved!",
+        message="Congratulations! Your account has been approved. You can now log in.",
+        email_to=user.email
+    )
+
     flash(f'User {user.username} has been approved.', 'success')
     return redirect(url_for('main.admin'))

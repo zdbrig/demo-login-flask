@@ -1,0 +1,5 @@
+.env
+create-project
+test.py
+/instance/
+/__pycache__/
