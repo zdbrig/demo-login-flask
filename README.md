@@ -34,7 +34,8 @@ EMAIL_PASSWORD=your_email_password
 Use Docker Compose to build and run the project. This command will build the Docker images and start the containers as defined in the docker-compose.yml file.
 
 ```bash
-docker-compose up --build
+chmod +x start.sh
+./start.sh
 ```
 
 ## Accessing the Application
