@@ -62,9 +62,10 @@ def register():
         # Send registration email
         email_handler.send_email(
             subject="Welcome to Our App!",
-            message="Thank you for registering. Your account is pending approval.",
+            message="Thank you for registering! Your account is currently pending approval. We appreciate your patience and look forward to having you on board soon. \n\nBest regards,\nSQOIN Team",
             email_to=user.email
         )
+
 
         flash('Registration successful. Please wait for admin approval.', 'success')
         return redirect(url_for('auth.login'))
@@ -80,12 +81,33 @@ def approve_user(user_id):
     user.is_approved = True
     db.session.commit()
 
-    # Send approval email
+   # Send approval email
     email_handler.send_email(
         subject="Your Account Has Been Approved!",
-        message="Congratulations! Your account has been approved. You can now log in.",
+        message="Congratulations ! 🎉 \nYour account has been approved! You can now log in and start making things happen. 🚀\n\nWe truly appreciate your trust in our platform. Welcome aboard!\n\nWarm regards,\nSQOIN Team",
         email_to=user.email
     )
 
+
     flash(f'User {user.username} has been approved.', 'success')
+    return redirect(url_for('main.admin'))
+
+@main.route('/suspend/<int:user_id>')
+@login_required
+def suspend_user(user_id):
+    if not current_user.is_admin:
+        flash('You do not have permission to perform this action.', 'danger')
+        return redirect(url_for('main.index'))
+    user = User.query.get_or_404(user_id)
+    user.is_approved = False  # Set is_approved to False to suspend the user
+    db.session.commit()
+
+    # Send suspension email
+    email_handler.send_email(
+        subject="Your Account Has Been Suspended",
+        message="We regret to inform you that your account has been suspended. If you believe this is a mistake or have any questions, please contact our support team for assistance. \n\nBest regards,\nSQOIN Team",
+        email_to=user.email
+    )
+
+    flash(f'User {user.username} has been suspended.', 'warning')
     return redirect(url_for('main.admin'))
