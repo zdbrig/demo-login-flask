@@ -54,6 +54,21 @@ To stop the application and remove the containers, run:
 docker-compose down
 ```
 
+## Creating admin account
+### Step 1 : Register a user
+Register a user normally using /register
+### Step 2 : Update user fields in DB
+```bash
+sqlite3 instance/app.db
+```
+The sqlite3 shell opens
+```sqlite3
+sqlite> SELECT * FROM user;
+```
+Find the id of the user to be the admin
+```sqlite3
+sqlite> UPDATE user SET is_admin=1, is_approved=1 WHERE id = <ID_HERE>;
+```
 ## Notes
 
 - The SQLite database is stored locally in the instance directory.
