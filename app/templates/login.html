@@ -1,22 +1,38 @@
-
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Login</h1>
-    <form method="POST" action="{{ url_for('auth.login') }}">
-        {{ form.hidden_tag() }}
-        <div class="form-group">
-            {{ form.username.label }}
-            {{ form.username(class="form-control") }}
+<div class="centered-content">
+    <div class="auth-container">
+        <div class="login-container">
+            <div class="social-login">
+                <img src="{{ url_for('static', filename='images/logo1.png') }}" alt="SQOIN Logo" style="height: 40px;">
+                <p>Login using social media to get quick access</p>
+                <button class="btn btn-facebook">Signin with Facebook</button>
+                <button class="btn btn-twitter">Signin with Twitter</button>
+                <button class="btn btn-google">Signin with Google</button>
+            </div>
+            <div class="email-login">
+                <h2>Login to your account</h2>
+                <p>Don't have an account? <a href="{{ url_for('auth.register') }}">Sign Up Free!</a></p>
+                <form method="POST" action="{{ url_for('auth.login') }}">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        {{ form.email.label }}
+                        {{ form.email(class="form-control", placeholder="Email address") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.password.label }}
+                        {{ form.password(class="form-control", placeholder="Password") }}
+                    </div>
+                    <div class="form-check">
+                        {{ form.remember_me(class="form-check-input") }}
+                        {{ form.remember_me.label(class="form-check-label") }}
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div>
+                    {{ form.submit(class="btn btn-primary btn-block", value="Login with email") }}
+                </form>
+            </div>
         </div>
-        <div class="form-group">
-            {{ form.password.label }}
-            {{ form.password(class="form-control") }}
-        </div>
-        <div class="form-check">
-            {{ form.remember_me(class="form-check-input") }}
-            {{ form.remember_me.label(class="form-check-label") }}
-        </div>
-        {{ form.submit(class="btn btn-primary") }}
-    </form>
+    </div>
+</div>
 {% endblock %}

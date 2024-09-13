@@ -1,45 +1,53 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Register</h1>
-    <form method="POST" action="{{ url_for('auth.register') }}">
-        {{ form.hidden_tag() }}
-        <div class="form-group">
-            {{ form.username.label }}
-            {{ form.username(class="form-control") }}
+<div class="centered-content">
+    <div class="auth-container">
+        <div class="register-container">
+            <div class="register-sidebar">
+                <img src="{{ url_for('static', filename='images/logo1.png') }}" alt="SQOIN Logo" style="height:50px;">
+                <p>Register using social media for quick setup</p>
+                <button class="btn btn-facebook">Register with Facebook</button>
+                <button class="btn btn-twitter">Register with Twitter</button>
+                <button class="btn btn-google">Register with Google</button>
+            </div>
+            <div class="register-main">
+                <h2>Create your account</h2>
+                <p>Already have an account? <a href="{{ url_for('auth.login') }}">Sign In</a></p>
+                <form method="POST" action="{{ url_for('auth.register') }}">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        {{ form.username(class="form-control", placeholder="Username") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.email(class="form-control", placeholder="Email address") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.password(class="form-control", placeholder="Password") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.password2(class="form-control", placeholder="Confirm password") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.phone_number(class="form-control", placeholder="Phone number") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.occupation(class="form-control", placeholder="Occupation") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.preferred_contact_method(class="form-control") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.reason_for_interest(class="form-control", placeholder="Reason for interest") }}
+                    </div>
+                    <div class="form-check">
+                        {{ form.agree_terms(class="form-check-input") }}
+                        {{ form.agree_terms.label(class="form-check-label") }}
+                    </div>
+                    {{ form.submit(class="btn btn-primary btn-block", value="Create Account") }}
+                </form>
+            </div>
         </div>
-        <div class="form-group">
-            {{ form.email.label }}
-            {{ form.email(class="form-control") }}
-        </div>
-        <div class="form-group">
-            {{ form.phone_number.label }}
-            {{ form.phone_number(class="form-control") }}
-        </div>
-        <div class="form-group">
-            {{ form.password.label }}
-            {{ form.password(class="form-control") }}
-        </div>
-        <div class="form-group">
-            {{ form.password2.label }}
-            {{ form.password2(class="form-control") }}
-        </div>
-        <div class="form-group">
-            {{ form.occupation.label }}
-            {{ form.occupation(class="form-control") }}
-        </div>
-        <div class="form-group">
-            {{ form.preferred_contact_method.label }}
-            {{ form.preferred_contact_method(class="form-control") }}
-        </div>
-        <div class="form-group">
-            {{ form.reason_for_interest.label }}
-            {{ form.reason_for_interest(class="form-control") }}
-        </div>
-        <div class="form-check">
-            {{ form.agree_terms(class="form-check-input") }}
-            {{ form.agree_terms.label(class="form-check-label") }}
-        </div>
-        {{ form.submit(class="btn btn-primary") }}
-    </form>
+    </div>
+</div>
 {% endblock %}
